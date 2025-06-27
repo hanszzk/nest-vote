@@ -1,14 +1,6 @@
-import { IsNotEmpty, MaxLength } from "class-validator";
+import { UserDto } from "./user.dto";
 
 
-export class CreateUserDto {
-    @IsNotEmpty()
-    @MaxLength(50)
-    name: string;
-
-    @IsNotEmpty()
-    @MaxLength(20)
-    ssn: string;
-
+export class CreateUserDto extends UserDto {
     roles: string[] = [];
 }
