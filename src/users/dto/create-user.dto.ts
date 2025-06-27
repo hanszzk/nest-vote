@@ -9,4 +9,6 @@ export class CreateUserDto {
     @IsNotEmpty()
     @MaxLength(20)
     ssn: string;
+
+    roles: string[] = [];
 }

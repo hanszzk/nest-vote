@@ -10,11 +10,12 @@ import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { authConstants } from '../constants/autn.constants';
 import { decoratorConstants } from '../../common/constants/decorator.constants';
+import { UsersService } from 'src/users/services/users.service';
 
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private jwtService: JwtService, private reflector: Reflector) { }
+    constructor(private jwtService: JwtService, private reflector: Reflector, private usersService: UsersService) { }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const isPublic = this.reflector.getAllAndOverride<boolean>(decoratorConstants.IS_PUBLIC_KEY, [
@@ -36,14 +37,14 @@ export class AuthGuard implements CanActivate {
                     secret: authConstants.secret
                 }
             );
-            request['user'] = payload;
+            request['user'] = await this.usersService.findOne(payload.sub);
         } catch {
             throw new UnauthorizedException();
         }
         return true;
     }
 
-    private extractTokenFromHeader(request: Request): string | undefined {
+    private extractTokenFromHeader(request: Request) {
         const [type, token] = request.headers.authorization?.split(' ') ?? [];
         return type === 'Bearer' ? token : undefined;
     }
