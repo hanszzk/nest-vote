@@ -120,6 +120,37 @@ npm run start:prod
 npm run test
 ```
 
+## Docker 部署
+
+### 构建镜像
+
+在项目根目录下执行：
+
+```bash
+docker build -t nest-vote .
+```
+
+### 运行容器
+
+```bash
+docker run -d -p 3000:3000 --name nest-vote nest-vote
+```
+
+容器启动后，可通过 `http://localhost:3000` 访问服务，`http://localhost:3000/swagger` 查看接口文档。
+
+### 常用命令
+
+- 查看日志：
+  ```bash
+  docker logs -f nest-vote
+  ```
+- 停止并移除容器：
+  ```bash
+  docker stop nest-vote && docker rm nest-vote
+  ```
+
+> 如需修改端口或环境变量，可在 `docker run` 时通过 `-e` 或 `-p` 参数自定义。
+
 ## API 文档
 
 项目启动后，访问 `/swagger` 查看 Swagger 文档， 文档中有测试的样例数据，可直接调用接口。
