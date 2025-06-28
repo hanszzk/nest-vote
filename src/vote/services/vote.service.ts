@@ -5,7 +5,6 @@ import { UserDto } from 'src/users/dto/user.dto';
 import { VoteDto } from '../dto/vote.dto';
 import { Result } from 'src/common/interfaces/result.interface';
 import { commonConstants } from 'src/common/constants/common.constants';
-import { VoteTopicDto } from 'src/vote-mgmt/dto/vote-topic.dto';
 import { VoteMgmtService } from 'src/vote-mgmt/services/vote-mgmt.service';
 
 @Injectable()
@@ -38,8 +37,7 @@ export class VoteService {
 
     async handleVote(voteDto: VoteDto, userDto: UserDto) {
         // 获取投票主题缓存，如果投票主题不存在或已经结束，返回错误
-        const voteTopicId = commonConstants.VOTE_TOPIC_CACHE_KEY + voteDto.voteTopicId;
-        const voteTopic = await this.cacheManager.get<VoteTopicDto>(voteTopicId);
+        const voteTopic = await this.voteMgmtService.findVoteTopicById(voteDto.voteTopicId);
         if (!voteTopic || voteTopic.status === commonConstants.FINISHED) {
             return Result.fail('投票主题不存在或已结束');
         }

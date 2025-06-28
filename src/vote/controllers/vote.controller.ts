@@ -5,7 +5,6 @@ import { UserDto } from 'src/users/dto/user.dto';
 import { Request as ExpressRequest } from 'express';
 import { Auth } from 'src/common/decorators/auth.decorator';
 import { Role } from 'src/common/enums/role.enum';
-
 @Controller('vote')
 @Auth(Role.User)
 export class VoteController {

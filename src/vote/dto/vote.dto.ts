@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 import { VoteCandidateDto } from 'src/vote-mgmt/dto/vote-candidate.dto';
 
 export class VoteDto {
@@ -6,6 +6,5 @@ export class VoteDto {
     voteTopicId: string;
 
     @IsNotEmpty()
-    @IsArray()
     candidate: VoteCandidateDto;
 }
