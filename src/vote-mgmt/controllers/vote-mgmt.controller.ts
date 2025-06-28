@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { VoteMgmtService } from '../services/vote-mgmt.service';
 import { Role } from 'src/common/enums/role.enum';
 import { Auth } from 'src/common/decorators/auth.decorator';
@@ -32,8 +32,8 @@ export class VoteMgmtController {
         return this.voteMgmtService.updateVoteTopicStatus(body);
     }
 
-    @Get('vote-topic')
-    async readVoteTopic(@Query('voteTopicId') voteTopicId: string) {
+    @Get('vote-topic/:voteTopicId')
+    async readVoteTopic(@Param('voteTopicId') voteTopicId: string) {
         return this.voteMgmtService.readVoteTopicCount(voteTopicId);
     }
 

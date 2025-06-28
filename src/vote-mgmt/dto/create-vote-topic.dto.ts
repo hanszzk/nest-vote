@@ -12,5 +12,5 @@ export class CreateVoteTopicDto {
 
     @IsOptional()
     @IsArray()
-    candidateList: VoteCandidateDto[];
+    candidateList: VoteCandidateDto[];//候选人列表
 }
