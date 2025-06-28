@@ -12,14 +12,14 @@ export class UsersService {
 
     async registerUser(createUserDto: CreateUserDto) {
         const id = commonConstants.USER_CACHE_KEY + createUserDto.ssn;
-        const user = await this.cacheManager.get<CreateUserDto>(id);
+        const user = await this.findOne(createUserDto.ssn);
         if (user) {
             return Result.fail('user already exists');
         }
 
         await this.cacheManager.set(id, createUserDto);
 
-        return Result.suc();
+        return Result.suc(user);
     }
 
     async findOne(ssn: string) {

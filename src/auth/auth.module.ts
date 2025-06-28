@@ -4,13 +4,11 @@ import { authConstants } from './constants/autn.constants';
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
 import { UsersService } from 'src/users/services/users.service';
-import { CacheModule } from '@nestjs/cache-manager';
 import { AuthGuard } from './guards/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
     imports: [
-        CacheModule.register(),
         JwtModule.register({
             global: true,
             secret: authConstants.secret,

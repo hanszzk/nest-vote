@@ -1,13 +1,13 @@
 import { Body, Controller, Get, Post, Request } from '@nestjs/common';
-import { Public } from 'src/common/decorators/public.decorator';
 import { VoteService } from '../services/vote.service';
 import { VoteDto } from '../dto/vote.dto';
 import { UserDto } from 'src/users/dto/user.dto';
 import { Request as ExpressRequest } from 'express';
+import { Auth } from 'src/common/decorators/auth.decorator';
+import { Role } from 'src/common/enums/role.enum';
 
 @Controller('vote')
-// @Auth(Role.Admin)
-@Public()
+@Auth(Role.User)
 export class VoteController {
     constructor(private readonly voteService: VoteService) {}
 

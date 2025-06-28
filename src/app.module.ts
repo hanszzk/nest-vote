@@ -8,9 +8,20 @@ import { UsersModule } from './users/users.module';
 import { AuthService } from './auth/services/auth.service';
 import { AuthController } from './auth/controllers/auth.controller';
 import { VoteModule } from './vote/vote.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-    imports: [AuthModule, UsersModule, VoteMgmtModule, VoteModule, SquareModule],
+    imports: [
+        CacheModule.register({
+            isGlobal: true,
+            store: 'memory',
+        }),
+        AuthModule,
+        UsersModule,
+        VoteMgmtModule,
+        VoteModule,
+        SquareModule,
+    ],
     controllers: [AppController, AuthController],
     providers: [AppService, AuthService],
 })

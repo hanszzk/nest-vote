@@ -1,13 +1,13 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { VoteMgmtService } from '../services/vote-mgmt.service';
 import { VoteTopicDto } from '../dto/vote-topic.dto';
-import { Public } from 'src/common/decorators/public.decorator';
 import { VoteCandidateDto } from '../dto/vote-candidate.dto';
 import { VoteTopicStatusDto } from '../dto/vote-topic-status.dto';
+import { Auth } from 'src/common/decorators/auth.decorator';
+import { Role } from 'src/common/enums/role.enum';
 
 @Controller('vote-mgmt')
-// @Auth(Role.Admin)
-@Public()
+@Auth(Role.Admin)
 export class VoteMgmtController {
     constructor(private readonly voteMgmtService: VoteMgmtService) {}
 
