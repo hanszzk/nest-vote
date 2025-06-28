@@ -15,25 +15,32 @@ export class VoteMgmtService {
     async createVoteTopic(createVoteDto: VoteTopicDto) {
         const { VOTE_TOPIC_CACHE_KEY, NOT_STASTUS } = commonConstants;
         const voteTopicList = await this.findVoteTopicList();
-        voteTopicList.push({
+        const createdVoteTopic = {
             ...createVoteDto,
             status: NOT_STASTUS,
             id: createVoteDto.id ?? Date.now().toString(),
-        });
-        await this.cacheManager.set(VOTE_TOPIC_CACHE_KEY, voteTopicList);
+        };
+        // 检查是否已存在id相同投票主题
+        const existingVoteTopic = voteTopicList.find((topic) => topic.id === createdVoteTopic.id);
+        if (existingVoteTopic) {
+            return Result.fail('Vote topic with this ID already exists');
+        }
 
-        return Result.suc(createVoteDto);
+        await this.cacheManager.set(VOTE_TOPIC_CACHE_KEY, [...voteTopicList, createdVoteTopic]);
+
+        return Result.suc(createdVoteTopic);
     }
 
     async addVoteCandidate(voteCandidateDtoList: VoteCandidateDto[]) {
-        const { VOTE_TOPIC_CACHE_KEY, FINISHED } = commonConstants;
+        const { FINISHED } = commonConstants;
         const voteTopic = await this.findVoteTopicById(voteCandidateDtoList[0].voteTopicId);
         if (!voteTopic || voteTopic.status === FINISHED) {
             return Result.fail('Vote topic not found or already finished');
         }
 
         voteTopic.candidateList = voteCandidateDtoList;
-        await this.cacheManager.set<VoteTopicDto>(VOTE_TOPIC_CACHE_KEY, voteTopic);
+        await this.updateVoteTopicById(voteTopic);
+
         return Result.suc();
     }
 
@@ -70,13 +77,37 @@ export class VoteMgmtService {
             return Result.fail('Vote topic not found or not finished');
         }
 
-        // 除去 voteTopic.candidateList 中不需要的字段后返回
-        voteTopic.candidateList?.map((candidate) => ({
-            ...candidate,
-            voteUserList: undefined, // 不返回投票用户列表
-        }));
+        let candidate: VoteCandidateDto | null = null;
+        let totalVotes = 0;
+        // 统计topic中所有候选人得票数并查询得票最高的候选人
+        await this.countVotes(voteTopic);
+        voteTopic.candidateList?.map((item) => {
+            if (item.totalVotes > totalVotes) {
+                candidate = item;
+                totalVotes = item.totalVotes;
+            }
+        });
+        voteTopic.candidateList = undefined;
 
-        return Result.suc(voteTopic);
+        return Result.suc({
+            ...voteTopic,
+            candidate,
+        });
+    }
+
+    async countVotes(voteTopic: VoteTopicDto) {
+        //查询当前topic的投票记录
+        const voteHistoryList = await this.findVoteHistoryList(voteTopic.id);
+
+        // 统计每个候选人的投票数量
+        voteTopic.candidateList?.forEach((candidate) => {
+            candidate.voteUserList = undefined;
+            candidate.totalVotes = voteHistoryList.filter(
+                (voteHistory) => voteHistory.candidate.ssn === candidate.ssn,
+            ).length;
+        });
+
+        return voteTopic;
     }
 
     async findVoteTopicList() {

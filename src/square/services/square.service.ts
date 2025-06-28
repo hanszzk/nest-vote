@@ -18,16 +18,7 @@ export class SquareService {
         if (voteTopic?.status !== commonConstants.IN_PROGRESS) {
             return Result.fail('Vote topic is not in progress');
         }
-        //查询当前topic的投票记录
-        const voteHistoryList = await this.voteMgmtService.findVoteHistoryList(voteTopicId);
-
-        // 统计每个候选人的投票数量
-        voteTopic.candidateList?.forEach((candidate) => {
-            candidate.voteUserList = undefined;
-            candidate.totalVotes = voteHistoryList.filter(
-                (voteHistory) => voteHistory.candidate.id === candidate.id,
-            ).length;
-        });
+        await this.voteMgmtService.countVotes(voteTopic);
 
         return Result.suc(voteTopic);
     }
