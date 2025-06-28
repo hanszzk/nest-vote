@@ -7,5 +7,5 @@ export class VoteDto {
 
     @IsNotEmpty()
     @IsArray()
-    candidateList: VoteCandidateDto[]; // 候选人列表
+    candidate: VoteCandidateDto;
 }

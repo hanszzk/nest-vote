@@ -6,6 +6,7 @@ import { Cache } from 'cache-manager';
 import { Result } from 'src/common/interfaces/result.interface';
 import { VoteCandidateDto } from '../dto/vote-candidate.dto';
 import { VoteTopicStatusDto } from '../dto/vote-topic-status.dto';
+import { VoteDto } from 'src/vote/dto/vote.dto';
 
 @Injectable()
 export class VoteMgmtService {
@@ -96,5 +97,10 @@ export class VoteMgmtService {
             voteTopicList[index] = voteTopic;
             await this.cacheManager.set(VOTE_TOPIC_CACHE_KEY, voteTopicList);
         }
+    }
+
+    async findVoteHistoryList(voteTopicId: string) {
+        const voteHistoryKey = commonConstants.VOTE_HISTORY_CACHE_KEY + voteTopicId;
+        return this.cacheManager.get<Array<{ ssn: string } & VoteDto>>(voteHistoryKey).then((res) => res ?? []);
     }
 }

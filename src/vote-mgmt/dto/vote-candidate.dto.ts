@@ -17,5 +17,5 @@ export class VoteCandidateDto {
 
     totalVotes: number; // 总得票数
 
-    voteUserList: UserDto[]; // 记录投票的用户列表
+    voteUserList?: UserDto[]; // 记录投票的用户列表
 }

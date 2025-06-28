@@ -20,7 +20,7 @@ export class VoteService {
         const voteTopicList = await this.voteMgmtService.findVoteTopicList();
         const res = await Promise.all(
             voteTopicList.map(async (topic) => {
-                const voteHistoryList = await this.findVoteHistoryList(topic.id);
+                const voteHistoryList = await this.voteMgmtService.findVoteHistoryList(topic.id);
                 const hasHistory = voteHistoryList.some((voteHistory) => voteHistory.ssn === userDto.ssn);
                 return {
                     name: user?.name,
@@ -46,7 +46,7 @@ export class VoteService {
 
         //获取投票记录，如果用户已经投过票，返回错误
         const voteHistoryKey = commonConstants.VOTE_HISTORY_CACHE_KEY + voteDto.voteTopicId;
-        const voteHistoryList = await this.findVoteHistoryList(voteDto.voteTopicId);
+        const voteHistoryList = await this.voteMgmtService.findVoteHistoryList(voteDto.voteTopicId);
         const hasVoted = voteHistoryList.some((voteHistory) => voteHistory.ssn === userDto.ssn);
         if (hasVoted) {
             return Result.fail('您已经投过票了');
@@ -57,10 +57,5 @@ export class VoteService {
         await this.cacheManager.set(voteHistoryKey, voteHistoryList);
 
         return Result.suc();
-    }
-
-    async findVoteHistoryList(voteTopicId: string) {
-        const voteHistoryKey = commonConstants.VOTE_HISTORY_CACHE_KEY + voteTopicId;
-        return this.cacheManager.get<Array<{ ssn: string } & VoteDto>>(voteHistoryKey).then((res) => res ?? []);
     }
 }
