@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { Result } from 'src/common/interfaces/result.interface';
+import { Result } from 'src/common/model/result.model';
 import { VoteMgmtService } from 'src/vote-mgmt/services/vote-mgmt.service';
 import { commonConstants } from 'src/common/constants/common.constants';
 

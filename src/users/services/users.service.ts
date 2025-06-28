@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { Result } from 'src/common/interfaces/result.interface';
+import { Result } from 'src/common/model/result.model';
 import { commonConstants } from 'src/common/constants/common.constants';
 import { UserDto } from '../dto/user.dto';
 

@@ -1,4 +1,4 @@
-export class Result<T> {
+export class Result<T = any> {
     public success: boolean;
     public message: string;
     public data?: T;

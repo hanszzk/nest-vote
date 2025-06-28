@@ -3,7 +3,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { VoteTopicDto } from '../dto/vote-topic.dto';
 import { commonConstants } from 'src/common/constants/common.constants';
 import { Cache } from 'cache-manager';
-import { Result } from 'src/common/interfaces/result.interface';
+import { Result } from 'src/common/model/result.model';
 import { VoteCandidateDto } from '../dto/vote-candidate.dto';
 import { VoteTopicStatusDto } from '../dto/vote-topic-status.dto';
 import { VoteDto } from 'src/vote/dto/vote.dto';
