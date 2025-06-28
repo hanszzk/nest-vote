@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { VoteMgmtService } from '../services/vote-mgmt.service';
-import { CreateVoteTopicDto } from '../dto/create-vote-topic.dto';
+import { VoteTopicDto } from '../dto/vote-topic.dto';
 import { Public } from 'src/common/decorators/public.decorator';
 import { VoteCandidateDto } from '../dto/vote-candidate.dto';
 import { VoteTopicStatusDto } from '../dto/vote-topic-status.dto';
@@ -12,7 +12,7 @@ export class VoteMgmtController {
     constructor(private readonly voteMgmtService: VoteMgmtService) {}
 
     @Post('vote-topic')
-    async createVoteTopic(@Body() body: CreateVoteTopicDto) {
+    async createVoteTopic(@Body() body: VoteTopicDto) {
         return this.voteMgmtService.createVoteTopic(body);
     }
 

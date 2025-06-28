@@ -8,6 +8,6 @@ import { UsersService } from 'src/users/services/users.service';
     imports: [CacheModule.register()],
     controllers: [VoteMgmtController],
     providers: [VoteMgmtService, UsersService],
-    exports: [],
+    exports: [VoteMgmtService],
 })
 export class VoteMgmtModule {}

@@ -1,7 +1,7 @@
 import { IsArray, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
 import { VoteCandidateDto } from './vote-candidate.dto';
 
-export class CreateVoteTopicDto {
+export class VoteTopicDto {
     id: string;
 
     @IsNotEmpty()
@@ -12,5 +12,5 @@ export class CreateVoteTopicDto {
 
     @IsOptional()
     @IsArray()
-    candidateList: VoteCandidateDto[]; //候选人列表
+    candidateList?: VoteCandidateDto[]; //候选人列表
 }
