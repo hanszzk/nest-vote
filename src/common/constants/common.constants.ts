@@ -3,5 +3,7 @@ export const commonConstants = {
     IN_PROGRESS: '1',
     FINISHED: '2',
 
-    VOTE_TOPIC_CACHE_PREFIX: 'vote::topic::',
+    USER_CACHE_KEY: 'vote::user',
+    VOTE_TOPIC_CACHE_KEY: 'vote::topic',
+    VOTE_HISTORY_CACHE_KEY: 'vote::history',
 };
