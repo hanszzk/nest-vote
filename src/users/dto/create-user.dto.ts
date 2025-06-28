@@ -1,18 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, MaxLength } from 'class-validator';
+import { UserDto } from './user.dto';
 
-export class CreateUserDto {
-    @IsNotEmpty()
-    @MaxLength(50)
-    @ApiProperty({ description: '用户名', maxLength: 50, example: 'hans' })
-    name: string;
-
-    @IsNotEmpty()
-    @MaxLength(20)
-    @ApiProperty({ description: 'SSN', maxLength: 20, example: '123456789' })
-    ssn: string;
-
-    @IsNotEmpty()
-    @ApiProperty({ description: '密码', example: 'password123' })
-    password: string;
-}
+export class CreateUserDto extends UserDto {}

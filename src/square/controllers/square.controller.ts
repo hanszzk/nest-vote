@@ -3,7 +3,7 @@ import { SquareService } from '../services/square.service';
 import { Public } from 'src/common/decorators/public.decorator';
 import { ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
 
-@ApiTags('square')
+@ApiTags('Square(Public API)')
 @Public()
 @Controller('square')
 export class SquareController {

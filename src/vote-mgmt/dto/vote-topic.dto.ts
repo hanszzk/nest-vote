@@ -20,7 +20,7 @@ export class VoteTopicDto {
 
     @ApiPropertyOptional({
         description: '投票主题状态:0:未开始，1：进行中，2：已结束',
-        example: ['0', '1', '2'],
+        example: '0',
     })
     status: string;
 
