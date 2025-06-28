@@ -6,8 +6,8 @@ import { UsersService } from 'src/users/services/users.service';
 export class AuthService {
     constructor(
         private usersService: UsersService,
-        private jwtService: JwtService
-    ) { }
+        private jwtService: JwtService,
+    ) {}
 
     async signIn(name: string, ssn: string) {
         const user = await this.usersService.findOne(ssn);

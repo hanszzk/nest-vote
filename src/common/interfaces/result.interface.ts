@@ -1,4 +1,3 @@
-
 export class Result<T> {
     public success: boolean;
     public message: string;

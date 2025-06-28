@@ -5,14 +5,12 @@ import { QueryUserDto } from '../dto/query-user.dto';
 import { Public } from 'src/common/decorators/public.decorator';
 import { Role } from 'src/common/enums/role.enum';
 import { Auth } from 'src/common/decorators/auth.decorator';
+import { Request as ExpressRequest } from 'express';
+import { UserDto } from '../dto/user.dto';
 
 @Controller('users')
 export class UsersController {
-
-    constructor(
-        private readonly usersService: UsersService
-    ) { }
-
+    constructor(private readonly usersService: UsersService) {}
 
     @Public()
     @Post('register')
@@ -28,13 +26,13 @@ export class UsersController {
 
     @Get('detail')
     @Auth(Role.User)
-    async findUserDetail(@Request() req: any) {
-        return this.usersService.findOne(req?.user?.ssn);
+    async findUserDetail(@Request() req: ExpressRequest & { user: UserDto }) {
+        return this.usersService.findOne(req.user?.ssn);
     }
 
     @Get('test')
-    async findUserInfo() {
+    findUserInfo() {
         // This is just a test endpoint to check if the user is authenticated
-        return null
+        return null;
     }
 }

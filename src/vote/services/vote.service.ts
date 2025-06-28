@@ -5,9 +5,11 @@ import { Result } from 'src/common/interfaces/result.interface';
 
 @Injectable()
 export class VoteService {
-  async readVoterInfo(user: UserDto) {}
+    readVoterInfo(user: UserDto) {
+        return Result.suc(user);
+    }
 
-  async handleVote(voteDto: VoteDto, userDto: UserDto) {
-    return Result.suc();
-  }
+    handleVote(voteDto: VoteDto, userDto: UserDto) {
+        return Result.suc({ voteDto, userDto });
+    }
 }

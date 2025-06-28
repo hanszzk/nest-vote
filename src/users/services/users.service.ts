@@ -6,21 +6,21 @@ import { Result } from 'src/common/interfaces/result.interface';
 
 @Injectable()
 export class UsersService {
-    constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) { }
+    constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
     async registerUser(createUserDto: CreateUserDto) {
-        const id = "user:" + createUserDto.ssn;
+        const id = 'user:' + createUserDto.ssn;
         const user = await this.cacheManager.get<CreateUserDto>(id);
         if (user) {
-            return Result.fail("user already exists");
+            return Result.fail('user already exists');
         }
 
         await this.cacheManager.set(id, createUserDto);
 
-        return Result.suc()
+        return Result.suc();
     }
 
     async findOne(ssn: string) {
-        return this.cacheManager.get<CreateUserDto>("user:" + ssn);
+        return this.cacheManager.get<CreateUserDto>('user:' + ssn);
     }
 }

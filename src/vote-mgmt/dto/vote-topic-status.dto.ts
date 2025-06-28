@@ -1,5 +1,5 @@
-import { IsIn, IsNotEmpty, Length } from "class-validator";
-import { commonConstants } from "src/common/constants/common.constants";
+import { IsIn, IsNotEmpty, Length } from 'class-validator';
+import { commonConstants } from 'src/common/constants/common.constants';
 
 export class VoteTopicStatusDto {
     @IsNotEmpty()

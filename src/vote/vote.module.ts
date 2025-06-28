@@ -3,7 +3,7 @@ import { VoteController } from './controllers/vote.controller';
 import { VoteService } from './services/vote.service';
 
 @Module({
-  controllers: [VoteController],
-  providers: [VoteService]
+    controllers: [VoteController],
+    providers: [VoteService],
 })
-export class VoteModule { }
+export class VoteModule {}

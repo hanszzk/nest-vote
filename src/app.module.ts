@@ -9,10 +9,9 @@ import { AuthService } from './auth/services/auth.service';
 import { AuthController } from './auth/controllers/auth.controller';
 import { VoteModule } from './vote/vote.module';
 
-
 @Module({
-  imports: [AuthModule, UsersModule, VoteMgmtModule, VoteModule, SquareModule],
-  controllers: [AppController, AuthController],
-  providers: [AppService, AuthService],
+    imports: [AuthModule, UsersModule, VoteMgmtModule, VoteModule, SquareModule],
+    controllers: [AppController, AuthController],
+    providers: [AppService, AuthService],
 })
-export class AppModule { }
+export class AppModule {}

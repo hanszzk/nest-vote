@@ -10,4 +10,4 @@ import { UsersService } from 'src/users/services/users.service';
     providers: [VoteMgmtService, UsersService],
     exports: [],
 })
-export class VoteMgmtModule { }
+export class VoteMgmtModule {}
