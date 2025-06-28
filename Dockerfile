@@ -1,5 +1,5 @@
 # 使用官方 Node.js v22.14.0 镜像作为构建阶段
-FROM node:22.14.0-alpine3.19 AS builder
+FROM node:22.14.0-alpine3.20 AS builder
 
 # 设置工作目录
 WORKDIR /usr/src/app
@@ -15,7 +15,7 @@ RUN npm run build
 
 # ----------------------------
 # 生产环境镜像
-FROM node:22.14.0-alpine3.19
+FROM node:22.14.0-alpine3.20
 
 # 安装生产环境必要依赖
 RUN apk add --no-cache tini curl
